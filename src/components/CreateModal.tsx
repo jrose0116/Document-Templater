@@ -24,10 +24,10 @@ const CreateModal = ({ submit, close, userEmail }: Props) => {
       setVariables((prevVariables) => [
         ...prevVariables,
         {
-          name: variableName,
-          value: variableValue,
+          name: xss(variableName),
+          value: xss(variableValue),
           id: uuidv4(),
-          color: variableColor,
+          color: xss(variableColor),
         },
       ]);
       setVariableName('');
@@ -106,7 +106,7 @@ const CreateModal = ({ submit, close, userEmail }: Props) => {
             </div>
           </div>
         </div>
-        <p className='modalInfo'>Info: When using a variable, use the variable name wrapped in 2 vertical lines. Ex: ||name|| </p>
+        <p className='modalInfo'>Info: When using a variable, use the variable name wrapped in 2 vertical lines. Ex: ||name||.  <br />Certain characters will be sanitized which may look different in input fields!</p>
         <div className="modalFooter">
           <button onClick={handleSubmit}>Create Template</button>
           <button onClick={close}>Cancel</button>
