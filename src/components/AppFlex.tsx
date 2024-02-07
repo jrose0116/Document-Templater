@@ -25,7 +25,8 @@ const AppFlex = () => {
     const createTemplate = async (template: Template) => {
         try {
             const templatesCollection = collection(firestore, "templates")
-            await addDoc(templatesCollection, template)
+            const docRef = await addDoc(templatesCollection, template)
+            if(docRef?.id) setCurrId(docRef.id)
             setRefresh(!refresh)
         }catch(e){
             console.log(e)
@@ -69,7 +70,6 @@ const AppFlex = () => {
         }
         fetchData()
     }, [email, refresh])
-    
 
     if(loading) return <>
     <h1>Loading...</h1>
