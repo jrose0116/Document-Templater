@@ -62,8 +62,8 @@ const TemplateInterface = (props: Props) => {
             <div>
                 {template.name || "Unnamed Template"}
             </div>
-            <img src="/src/assets/edit.svg" alt="Edit Template" className="templateInterfaceTitleEdit" onClick={()=>setEditModal(true)}/>
-            <img src="/src/assets/delete.svg" alt="Delete Template" className="templateInterfaceTitleDelete" onClick={()=>setConfirmDelete(true)}/>
+            <img src="/edit.svg" alt="Edit Template" className="templateInterfaceTitleEdit" onClick={()=>setEditModal(true)}/>
+            <img src="/delete.svg" alt="Delete Template" className="templateInterfaceTitleDelete" onClick={()=>setConfirmDelete(true)}/>
         </div>
         <div>
         {editModal && <EditModal submit={(template: Template)=>editTemplate(template)} close={()=>setEditModal(false)} template={template} />}
@@ -86,7 +86,7 @@ const TemplateInterface = (props: Props) => {
                 for(const variable of template.variables) string = string.replace(`||${variable.name}||`, `<span style="color:${variable.color}">${xss(variable.value)}</span>`)
                 return <p key={index} dangerouslySetInnerHTML={{__html: (string)}}></p>
                 }) : ""}
-                <img src="/src/assets/clipboard.svg" alt="Copy to Clipboard" className="templateInterfaceTextCopy" onClick={()=>{clipboardAction()}}/>
+                <img src="/clipboard.svg" alt="Copy to Clipboard" className="templateInterfaceTextCopy" onClick={()=>{clipboardAction()}}/>
             </div>
             <div className="templateInterfaceVariables">
                 <div className="templateInterfaceVariablesHead"><div>Variables</div></div>
