@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import xss from 'xss';
 import { Variable, Template } from '../../types/types';
+import { toast } from 'react-toastify';
 
 export interface Props {
   submit: (arg0: Template) => void;
@@ -20,7 +21,9 @@ const EditModal = ({ submit, close, template }: Props) => {
   const [variableColor, setVariableColor] = useState('#ff5043')
 
   const addVariable = () => {
-    if (variableName && variableValue) {
+    if (variables.find((variable)=>variable.name == variableName))
+      toast.error("Variable with name already exists")
+    else if (variableName && variableValue) {
       setVariables((prevVariables) => [
         ...prevVariables,
         {

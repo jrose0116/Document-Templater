@@ -5,6 +5,7 @@ import xss from "xss";
 import EditModal from "./EditModal";
 import { firestore } from "../firebase";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export interface Props {
     template: Template;
@@ -25,9 +26,10 @@ const TemplateInterface = (props: Props) => {
 
         try{
             await deleteDoc(templateDoc)
+            toast.success("Successfully Deleted Template!")
             setRefresh(!refresh)
         } catch (e) {
-            console.log(e)
+            toast.error("Failed to Delete Template!")
         }
     }
 
@@ -41,6 +43,7 @@ const TemplateInterface = (props: Props) => {
             let copyString = ''
             textElems.forEach((p)=> {if (p instanceof HTMLParagraphElement) copyString += p.innerText + "\n"})
             navigator.clipboard.writeText(copyString.trim())
+            toast.success("Copied Cover Letter To Clipboard!")
         }
     }
 
@@ -49,9 +52,10 @@ const TemplateInterface = (props: Props) => {
 
         try {
             await updateDoc(templateDoc, template)
+            toast.success("Successfully Edited Template!")
             setRefresh(!refresh)
         } catch (e) {
-            console.log(e)
+            toast.error("Failed To Edit Template!")
         }
     }
 

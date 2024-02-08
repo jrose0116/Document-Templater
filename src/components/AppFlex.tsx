@@ -5,6 +5,7 @@ import { JwtPayload, jwtDecode } from "jwt-decode"
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore"
 import {firestore} from "../firebase.js"
 import CreateModal from "./CreateModal.js"
+import { toast } from "react-toastify"
 
 interface EmailJwtPayload extends JwtPayload {
     email: string;
@@ -27,9 +28,10 @@ const AppFlex = () => {
             const templatesCollection = collection(firestore, "templates")
             const docRef = await addDoc(templatesCollection, template)
             if(docRef?.id) setCurrId(docRef.id)
+            toast.success("Template Created!")
             setRefresh(!refresh)
         }catch(e){
-            console.log(e)
+            toast.error("Failed to create template!")
         }
     }
 
@@ -39,7 +41,10 @@ const AppFlex = () => {
             if(token) {
                 const decodedInfo = jwtDecode<EmailJwtPayload>(token)
                 if (decodedInfo?.email) {
-                    if (decodedInfo.email != email) setEmail(decodedInfo.email)
+                    if (decodedInfo.email != email) {
+                        // toast.success(`Successfully Signed In ${decodedInfo}`)
+                        setEmail(decodedInfo.email)
+                    }
                     const templatesCollection = collection(firestore, "templates")
                     const userQuery = query(templatesCollection, where("email", "==", email))
                     const snapshot = await getDocs(userQuery)
