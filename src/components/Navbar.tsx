@@ -21,7 +21,7 @@ const Navbar = (props: Props) => {
     }, [])
     
     return <div className="navbar">
-        <h1 className="title">Cover Letter Templater</h1>
+        <h1 className="title">Document Templater</h1>
         {auth ? <button className="navButton" onClick={signOut}>Sign Out</button> : <div className="navButton">
             <GoogleLogin
             onSuccess={credentialResponse => {
